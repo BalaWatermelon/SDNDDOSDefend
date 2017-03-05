@@ -30,18 +30,21 @@ class MyTopo(Topo):
 		Topo.__init__(self)
 		
 		# Add hosts
-		server1 = self.addHost('server1')
-		server2 = self.addHost('server2')
-		host3 = self.addHost('shost3')
+		attacker = self.addHost('attacker')
+		user = self.addHost('user')
+		target = self.addHost('target')
 		
 		# Add switches
 		s1 = self.addSwitch('s1',protocols='OpenFlow13')
-		
+		s2 = self.addSwitch('s2',protocols='OpenFlow13')
+		s3 = self.addSwitch('s3',protocols='OpenFlow13')
 
 		# Add links for s1
-		self.addLink( s1, server1)
-		self.addLink( s1, server2)
-		self.addLink( s1, host3)
+		self.addLink( s1, target)
+		self.addLink( s1, s2)
+		self.addLink( s1, s3)
+		self.addLink( s2, attacker)
+		self.addLink( s3, user)
 
 
 topos = {'mytopo':(lambda: MyTopo())} 
